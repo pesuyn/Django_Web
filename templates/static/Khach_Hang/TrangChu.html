@@ -74,17 +74,16 @@
 					<div class="left-sidebar">
 						<h2>Ngành hàng</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
-							{% for label in labels %}
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#{{label.id}}">
+										<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
 											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											{{ label.name }}
+											Đồ điện tử
 										</a>
 									</h4>
 								</div>
-								<div id="{{label.id}}" class="panel-collapse collapse">
+								<div id="sportswear" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul>
 											<li><a href="XemTheoLoai.html">TV </a></li>
@@ -95,8 +94,32 @@
 									</div>
 								</div>
 							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordian" href="#mens">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											Đồ gia dụng
+										</a>
+									</h4>
+								</div>
+								<div id="mens" class="panel-collapse collapse">
+									<div class="panel-body">
+										<ul>
+											<li><a href="#">Đồ nội thất</a></li>
+											<li><a href="#">Dụng cụ nấu ăn</a></li>
+											<li><a href="#">Đồ trang trí</a></li>
+											<li><a href="#">Phụ tùng</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
 
-							{% endfor %}
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a href="#">Đồ học tập</a></h4>
+								</div>
+							</div>
 						</div><!--/category-products-->
 
 						<div class="shipping text-center"><!--shipping-->
@@ -117,15 +140,15 @@
 												<div class="productinfo text-center">
 													<img src="{% static 'Khach_Hang/images/home/recommend1.jpg' %}" alt="" />
 													<h2>$56</h2>
-													<p>Easy Polo Black Edition</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<p>ABC </p>
+													<a href="{% url 'trang-chu:giohang' %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 												<div class="product-overlay">
 												<div class="overlay-content">
 													<h2>$56</h2>
 													<p>Easy Polo Black Edition</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-													<a href="ChiTietSanPham.html" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
+													<a href="{% url 'trang-chu:giohang' %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="{% url 'trang-chu:chitietsanpham' %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
 												</div>
 												</div>
 
@@ -253,25 +276,137 @@
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Tất cả sản phẩm</h2>
-						{% for item in items %}
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 										<div class="productinfo text-center">
-											<img src="{% static item.image.url %}" alt="" />
-											<h2>${{ item.price }}</h2>
-											<p>{{ item.name }}</p>
+											<img src="{% static 'Khach_Hang/images/home/product1.jpg' %}" alt="" />
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											<a href="product/{{item.slug}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
 
 										</div>
+										<div class="product-overlay">
+											<div class="overlay-content">
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												<a href="ChiTietSanPham.html" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
+											</div>
+										</div>
+								</div>
 
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="{% static 'Khach_Hang/images/home/product2.jpg' %}" alt="" />
+										<h2>$56</h2>
+										<p>Easy Polo Black Edition</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											<a href="ChiTietSanPham.html" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="{% static 'Khach_Hang/images/home/product3.jpg' %}" alt="" />
+										<h2>$56</h2>
+										<p>Easy Polo Black Edition</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											<a href="ChiTietSanPham.html" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="{% static 'Khach_Hang/images/home/product4.jpg' %}" alt="" />
+										<h2>$56</h2>
+										<p>Easy Polo Black Edition</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											<a href="ChiTietSanPham.html" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
+										</div>
+									</div>
+									<img src="{% static 'Khach_Hang/images/home/new.png' %}" class="new" alt="" />
+								</div>
+
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="{% static 'Khach_Hang/images/home/product5.jpg' %}" alt="" />
+										<h2>$56</h2>
+										<p>Easy Polo Black Edition</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											<a href="ChiTietSanPham.html" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
+										</div>
+									</div>
+									<img src="{% static 'Khach_Hang/images/home/sale.png' %}" class="new" alt="" />
+								</div>
+
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="{% static 'Khach_Hang/images/home/product6.jpg' %}" alt="" />
+										<h2>$56</h2>
+										<p>Easy Polo Black Edition</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											<a href="ChiTietSanPham.html" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
+										</div>
+									</div>
 								</div>
 
 							</div>
 						</div>
 
-						{% endfor %}
 
 					</div><!--features_items-->
 
