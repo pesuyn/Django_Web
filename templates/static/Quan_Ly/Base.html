@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Quản lý</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+     <script src="js/import.js"></script>
+
+    <!------ Include the above in your HEAD tag ---------->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!-- Fontfaces CSS-->
+    <link href="{% static 'Quan_Ly/css/font-face.css' %}" rel="stylesheet">
+    <link href="{% static 'Quan_Ly/css/css2.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'Quan_Ly/css/css.css' %}" rel="stylesheet">
+
+    <!-- Main CSS-->
+    <link href="{% static 'Quan_Ly/css/theme.css' %}" rel="stylesheet">
+
+
+</head><!--/head-->
+
+<body>
+{% include 'static/Quan_Ly/header.html' %}
+{% block content %}
+
+{% endblock %}
+ <script src="{% static 'Quan_Ly/js/animsition.min.js' %}"></script>
+    <script src="{% static 'Quan_Ly/js/chucnang.js' %}"></script>
+    <script src="{% static 'Quan_Ly/js/main.js' %}"></script>
+
+</body>
+
+</html>
