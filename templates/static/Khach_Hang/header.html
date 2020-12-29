@@ -1,6 +1,4 @@
 {% load static %}
-
-
 	<header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
 			<div class="container">
@@ -33,30 +31,18 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="TrangChu.html"><img src="{% static 'Khach_Hang/images/home/logo.png' %}" alt="" /></a>
+							<a href="{% url 'trang-chu:trangchu' %}"><img src="{% static 'Khach_Hang/images/home/logo.png' %}" alt="" /></a>
 						</div>
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-
 								<li><a href="{% url 'trang-chu:thanhtoan' %}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
-								<li><a href="GioHang.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
-
-                                {% if  request.user.is_active %}
-                                        {% csrf_token %}
-
-                                    <li><a>Hello, {{ request.user.username|default:" " }} </a></li>
-                                <li><a href="{% url 'trang-chu:dangxuat' %}" ><i class="fa fa-lock"></i>Đăng xuất</a></li>
-                                     {% csrf_token %}
-                                {% else %}
-                                    <li><a href="{% url 'trang-chu:dangki' %}"><i class="fa fa-lock"></i> Đăng Kí / Đăng Nhập</a></li>
-                                {% endif %}
-
+								<li><a href="{% url 'trang-chu:giohang' %}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+								<li><a href="{% url 'trang-chu:dangnhap' %}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
 							</ul>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div><!--/header-middle-->
@@ -75,7 +61,7 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="TrangChu.html" class="active">Trang chủ</a></li>
+								<li><a href="{% url 'trang-chu:trangchu'  %}" class="active">Trang chủ</a></li>
 								<li class="dropdown"><a href="#">Ngành hàng<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="XemTheoNganh.html">Đồ điện tử</a></li>
@@ -83,9 +69,9 @@
 										<li><a href="#">Đồ học tập</a></li>
                                     </ul>
                                 </li>
-								<li class="dropdown"><a href="#">Tin tức<i class="fa fa-angle-down"></i></a>
+								<li class="dropdown"><a href="{% url 'trang-chu:tintuc' %}">Tin tức<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="TinTuc.html">Danh sách tin tức</a></li>
+                                        <li><a href="{% url 'trang-chu:tintuc' %}">Danh sách tin tức</a></li>
                                     </ul>
                                 </li>
 								<li><a href="#">Đơn hàng</a></li>

@@ -65,10 +65,11 @@
 				</div>
 
 				<div class="col-sm-9 padding-right">
+					{% if object %}
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img src="images/product-details/1.jpg" alt="" />
+								<img src="{% static object.image.url %}" alt="" />
 								<h3>ZOOM</h3>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -105,26 +106,30 @@
 						</div>
 						<div class="col-sm-7">
 							<div class="product-information"><!--/product-information-->
-								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
-								<h2>Anne Klein Sleeveless Colorblock Scuba</h2>
-								<p>Web ID: 1089772</p>
-								<img src="images/product-details/rating.png" alt="" />
+
+								<img src=" " class="newarrival" alt="" />
+								<h2>{{ object.name }}</h2>
+								<p>Description: {{ object.description }}</p>
+								<img src="{% static object.image.url %}" alt="" />
 								<span>
-									<span>150.000</span>
+									<span>${{ object.price }}</span>
 									<label>Quantity:</label>
 									<input type="text" value="3" />
-									<button type="button" class="btn btn-fefault cart">
-										<i class="fa fa-shopping-cart"></i>
+									<a href="{{ item.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
 										Add to cart
-									</button>
+										<i class="fa fa-shopping-cart"></i>
+									</a>
 								</span>
-								<p><b>Số lượng:</b> 5</p>
-								<p><b>Loại:</b> Mới</p>
-								<p><b>Nhãn hiệu:</b> E-SHOPPER</p>
+
+								<p><b>Số lượng:</b> {{object.quantity}}</p>
+								<p><b>Loại:</b> {{ object.category }}</p>
+								<p><b>Nhà sản xuất:</b> {{ object.supplier}}</p>
 								<a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
+
 							</div><!--/product-information-->
 						</div>
 					</div><!--/product-details-->
+					{% endif %}
 
 					<div class="category-tab shop-details-tab"><!--category-tab-->
 						<div class="col-sm-12">
