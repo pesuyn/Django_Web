@@ -37,10 +37,7 @@ class dangki(View):
             alluser=User.objects.all()
             dem=0
 
-            for i in Profile.objects.all():
-                if i.phone == phone :
-                    messages.info(request, "Số điện thoại đã tồn tại")
-                    return render(request, 'static/Khach_Hang/register.html')
+
 
             for i in alluser:
                 if i.get_username() == name or i.get_email_field_name() == email:
