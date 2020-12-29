@@ -32,7 +32,7 @@ class dangki(View):
             phone = request.POST['sodienthoai']
             email = request.POST['email']
             avatar = request.POST['avatar']
-            gioitinh = request.POST['gioitinh']
+            gioitinh = request.POST.get('gioitinh', False)
             diachi = request.POST['diachi']
             alluser=User.objects.all()
             dem=0
@@ -49,17 +49,22 @@ class dangki(View):
                 messages.info(request, "Tên đăng nhập hoặc email đã tồn tại")
                 return render(request, 'static/Khach_Hang/register.html')
             else:
-                if (pw1 == pw and name!=pw and name!= pw1 ) : # cái này để k
-                    user = User.objects.create_user(username=name, password=pw, email=email)
-                    user.save()
+                if (pw1 == pw and name!=pw and name!= pw1 ) :
+                    for i in Profile.objects.all():
+                        if i.phone == phone:
+                            messages.info(request, "Số điện thoại đã tồn tại")
+                            return render(request, 'static/Khach_Hang/register.html')
+                        else:
+                            user = User.objects.create_user(username=name, password=pw, email=email)
+                            user.save()
 
-                    user1 = User.objects.get(username=name)
-                    profile = Profile.objects.create(user=user1,username=hovaten,avatar=avatar,sex=gioitinh,address=diachi, phone=phone )
-                    profile.save()
-                    my_group = Group.objects.get(name='Users')
-                    my_group.user_set.add(user1)
-                    messages.info(request, "Đăng kí thành công, hãy đăng nhập")
-                    return render(request, 'static/Khach_Hang/register.html')
+                            user1 = User.objects.get(username=name)
+                            profile = Profile.objects.create(user=user1,username=hovaten,avatar=avatar,sex=gioitinh,address=diachi, phone=phone )
+                            profile.save()
+                            my_group = Group.objects.get(name='Users')
+                            my_group.user_set.add(user1)
+                            messages.info(request, "Đăng kí thành công, hãy đăng nhập")
+                            return render(request, 'static/Khach_Hang/login.html')
                 else:
                     messages.info(request, "Đăng kí thất bại, vui lòng nhập lại")
                     return render(request, 'static/Khach_Hang/register.html')
