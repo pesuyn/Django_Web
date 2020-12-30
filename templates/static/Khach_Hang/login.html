@@ -25,16 +25,8 @@
                             <input type="text" name="tendangnhap" placeholder="Tên đăng nhập"/>
                             <input type="password" name="matkhau" placeholder="Mật khẩu"/>
 
-
-							<span>
-
-
-                                <input type="checkbox" class="checkbox">
-								Lưu tài khoản
-							</span>
-							<button type="submit" class="btn btn-default">Đăng nhập</button>
-
-                             {% csrf_token %}
+                                 <button type="submit" class="btn btn-default">Đăng nhập</button>
+                                  {% csrf_token %}
 
                                 {% for message in messages %}
                                 <p id="messages">{{ message }}</p>
@@ -42,6 +34,8 @@
                             {% endfor %}
 
 						</form>
+
+                      {% csrf_token %}
 
 
 					</div><!--/sign up form-->
