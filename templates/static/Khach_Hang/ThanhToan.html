@@ -1,0 +1,128 @@
+{% extends 'static/Khach_Hang/Base.html' %}
+{% load static %}
+
+{% block content %}
+
+	<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="#">Trang chủ</a></li>
+				  <li class="active">Thanh toán</li>
+				</ol>
+			</div><!--/breadcrums-->
+        {% if user %}
+			<div class="shopper-informations">
+				<div class="row">
+						<div class="bill-to">
+							<p>Hóa đơn</p>
+							<div class="form-one">
+								<form>
+									<input type="text" placeholder="Họ và tên" value="{{ user.last_name}}">
+									<input type="text" placeholder="Email*" value="{{ user.email}}">
+									<input type="text" placeholder="Số điện thoại" value="{{  profile.phone }}">
+									<input type="text" placeholder="Địa chỉ" value="{{ profile.address }}">
+								</form>
+							</div>
+					</div>
+
+				</div>
+			</div>
+            {% else %}
+            <div class="shopper-informations">
+				<div class="row">
+						<div class="bill-to">
+							<p>Hóa đơn</p>
+							<div class="form-one">
+								<form>
+									<input type="text" placeholder="Họ và tên">
+									<input type="text" placeholder="Email*">
+									<input type="text" placeholder="Số điện thoại">
+									<input type="text" placeholder="Địa chỉ">
+
+								</form>
+							</div>
+					</div>
+
+				</div>
+			</div>
+        {% endif %}
+			<div class="review-payment">
+				<h2>Đơn hàng</h2>
+			</div>
+
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Sản phẩm</td>
+							<td class="description"></td>
+							<td class="price">Giá</td>
+							<td class="quantity">Số lượng</td>
+							<td class="total">Thành tiền</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						 {% for item in items %}
+
+						<tr>
+							<td class="cart_product">
+								<a href=""><img width="200px" src="{% static item.item.image.url %}" alt="" /></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="">{{ item.item}}</a></h4>
+								<p>ID: {{ item.item.id }}</p>
+							</td>
+							<td class="cart_price">
+								<p>{{ item.item.price }}</p>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+                                    <p class="cart_total_price">{{ item.quantity }}</p>
+								</div>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">{% widthratio item.item.price 1 item.quantity %}</p>
+							</td>
+
+
+                             {% for i in object %}
+                              {% if item.item.name == i.name %}
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" href="{{ i.get_remove_from_cart_url}}"  ><i class="fa fa-times"></i></a>
+							</td>
+
+                                {% endif %}
+                            {% endfor %}
+						</tr>
+                        {% endfor %}
+
+						<tr>
+							<td colspan="4">&nbsp;</td>
+							<td colspan="2">
+								<table class="table table-condensed total-result">
+                                    {% csrf_token %}
+                                    <form>
+                                        {% csrf_token %}
+									<tr class="shipping-cost">
+										<td>Số lượng sản phẩm</td>
+										<td>{{ quantity }}</td>
+									</tr>
+									<tr>
+										<td>Tổng hóa đơn</td>
+										<td><span>{{ total }}</span></td>
+									</tr>
+                                        <input type="hidden" name="quantity" value="{{ quantity }}">
+                                         <input type="hidden" name="totalprice" value="{{ total }}">
+                                        <button style="background: #FE980F;color: whitesmoke;width: 100px;height: 50px; border: 0 none;border-radius: 0;margin-top: 16px;" type="submit" formmethod="post">Thanh toán</button>
+                                    </form>
+								</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section> <!--/#cart_items-->
+{% endblock %}

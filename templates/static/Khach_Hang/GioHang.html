@@ -1,0 +1,90 @@
+{% extends 'static/Khach_Hang/Base.html' %}
+{% load static %}
+
+{% block content %}
+	<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="#">Trang chủ</a></li>
+				  <li class="active">Giỏ hàng</li>
+				</ol>
+			</div>
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Sản phẩm</td>
+							<td class="description"></td>
+							<td class="price">Giá</td>
+							<td class="quantity">Số lượng</td>
+							<td class="total">Thành tiền</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+
+                    {% for item in items %}
+
+						<tr>
+							<td class="cart_product">
+								<a href=""><img width="200px" src="{% static item.item.image.url %}" alt="" /></a>
+							</td>
+							<td class="cart_description">
+								<h4><a href="">{{ item.item}}</a></h4>
+								<p>ID: {{ item.item.id }}</p>
+							</td>
+							<td class="cart_price">
+								<p>{{ item.item.price }}</p>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<a class="cart_quantity_up" href="{{ item.item.get_add_to_cart_url }}"> + </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="{{ item.quantity }}" autocomplete="off" size="2">
+									<a class="cart_quantity_down"  href="{{ item.item.update_from_cart_url }}"> - </a>
+								</div>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">{% widthratio item.item.price 1 item.quantity %}</p>
+							</td>
+
+
+                             {% for i in object %}
+                              {% if item.item.name  == i.name %}
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" href="{{ i.get_remove_from_cart_url}}"  ><i class="fa fa-times"></i></a>
+							</td>
+
+                                {% endif %}
+                            {% endfor %}
+						</tr>
+                        {% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section> <!--/#cart_items-->
+
+	<section id="do_action">
+		<div class="container">
+				<div class="col-sm-6">
+					<div class="total_area">
+						<ul>{% csrf_token %}
+								{% if  request.user.is_active %}
+                                        {% csrf_token %}
+							<li>Số lượng <span>{{ quantity }}</span></li>
+							<li>Tổng đơn hàng <span>{{ total }}</span></li>
+                                    {% else %}
+
+                                    <li>Số lượng <span>0</span></li>
+							    <li>Tổng đơn hàng <span>0</span></li>
+                            {% endif %}
+						</ul>
+							<a class="btn btn-default update" href="{% url 'trang-chu:thanhtoan' %}">Thanh toán</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section><!--/#do_action-->
+{% endblock %}

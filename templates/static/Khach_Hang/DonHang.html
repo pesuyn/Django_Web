@@ -1,0 +1,86 @@
+{% extends 'static/Khach_Hang/Base.html' %}
+{% load static %}
+
+{% block content %}
+
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-9">
+                  {% for  item in all %}
+                    <div class="single-blog-post">
+                    <h3>Lần mua hàng thứ: {{ item.trade_time }}</h3>
+							<div class="post-meta">
+								<ul>
+									<li><i class="fa fa-user"></i>{{ item.user.username }}</li>
+									<li><i class="fa fa-clock-o"></i> {{ item.date.time }}</li>
+									<li><i class="fa fa-calendar"></i> {{ item.date.date }}</li>
+								</ul>
+							</div>
+                        <section id="cart_items">
+                            <div class="container">
+
+
+                                <div class="table-responsive cart_info">
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr class="cart_menu">
+                                                <td class="image">Sản phẩm</td>
+                                                <td class="description"></td>
+                                                <td class="price">Giá</td>
+                                                <td class="quantity">Số lượng</td>
+                                                <td class="total">Thành tiền</td>
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                         {% for  i in list %}
+                                          {% for item1 in i %}
+                                          {% if item1.trade_time == item.trade_time %}
+
+                                            <tr>
+
+
+                                                <td class="cart_product">
+                                                    <a href=""><img width="200px" src="{% static item1.item.image.url %}" alt="" /></a>
+                                                </td>
+                                                <td class="cart_description">
+                                                    <h4><a href="">{{ item1.item}}</a></h4>
+                                                    <p>ID: {{ item1.item.id }}</p>
+                                                </td>
+                                                <td class="cart_price">
+                                                    <p>{{ item1.item.price }}</p>
+                                                </td>
+                                                <td class="cart_quantity">
+                                                    <div class="cart_quantity_button">
+                                                        <label style="color: #696763;font-size: 18px;">{{ item1.quantity }}</label>
+                                                    </div>
+                                                </td>
+                                                <td class="cart_total">
+                                                    <p class="cart_total_price">{% widthratio item1.item.price 1 item1.quantity %}</p>
+                                                </td>
+
+                                    {% endif %}
+                                      {% endfor %}
+
+
+                                   {% endfor %}
+
+
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section> <!--/#cart_items-->
+
+
+                    </div>
+
+                {% endfor %}
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

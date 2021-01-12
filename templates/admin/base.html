@@ -1,0 +1,320 @@
+{% load i18n static %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<title>{% block title %}{% endblock %}</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+     <script src="{% static 'Quan_Ly/js/import.js' %}"></script>
+
+    <!------ Include the above in your HEAD tag ---------->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!-- Fontfaces CSS-->
+    <link href="{% static 'Quan_Ly/css/font-face.css' %}" rel="stylesheet">
+    <link href="{% static 'Quan_Ly/css/css2.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'Quan_Ly/css/css.css' %}" rel="stylesheet">
+
+    <!-- Main CSS-->
+    <link href="{% static 'Quan_Ly/css/theme.css' %}" rel="stylesheet">
+
+ <script src="{% static 'Quan_Ly/js/animsition.min.js' %}"></script>
+    <script src="{% static 'Quan_Ly/js/chucnang.js' %}"></script>
+    <script src="{% static 'Quan_Ly/js/main.js' %}"></script>
+
+
+<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static 'admin/css/base.css' %}{% endblock %}">
+{% block extrastyle %}{% endblock %}
+{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static 'admin/css/rtl.css' %}{% endblock %}">{% endif %}
+{% block extrahead %}{% endblock %}
+{% block responsive %}
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/responsive.css' %}">
+    {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% static 'admin/css/responsive_rtl.css' %}">{% endif %}
+{% endblock %}
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
+</head>
+{% load i18n %}
+
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
+  data-admin-utc-offset="{% now 'Z' %}">
+
+<!-- Container -->
+
+<div id="container">
+
+    {% if not is_popup %}
+{#    <!-- Header -->#}
+{#    <div id="header">#}
+{#        <div id="branding">#}
+{#        {% block branding %}{% endblock %}#}
+{#        </div>#}
+{#        {% block usertools %}#}
+{#        {% if has_permission %}#}
+{#        <div id="user-tools">#}
+{#            {% block welcome-msg %}#}
+{#                {% trans 'Xin chào,' %}#}
+{#                <strong>{% firstof user.get_short_name user.get_username %}</strong>.#}
+{#            {% endblock %}#}
+{#            {% block userlinks %}#}
+{#                {% if site_url %}#}
+{#                    <a href="{{ site_url }}">{% trans 'Xem đường dẫn' %}</a> /#}
+{#                {% endif %}#}
+{#                {% if user.is_active and user.is_staff %}#}
+{#                    {% url 'django-admindocs-docroot' as docsroot %}#}
+{#                    {% if docsroot %}#}
+{#                        <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /#}
+{#                    {% endif %}#}
+{#                {% endif %}#}
+{#                {% if user.has_usable_password %}#}
+{#                <a href="{% url 'admin:password_change' %}">{% trans 'Đổi mật khẩu' %}</a> /#}
+{#                {% endif %}#}
+{#                <a href="{% url 'admin:logout' %}">{% trans 'Đăng xuất' %}</a>#}
+{#            {% endblock %}#}
+{#        </div>#}
+{#            #}
+{#        {% endif %}#}
+{#        {% endblock %}#}
+{#        {% block nav-global %}{% endblock %}#}
+{#    </div>#}
+
+
+ <header class="header-desktop">
+
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+
+                    <div class="header-wrap">
+                    <div id="branding">
+                    {% block branding %}{% endblock %}
+                    </div>
+                        <form class="form-header" action="" method="POST">
+                            <input class="au-input au-input--xl" type="text" name="search"
+                                   placeholder="Search for datas &amp; reports..."/>
+                            <button class="au-btn--submit" type="submit">
+                                <i class="zmdi zmdi-search"></i>
+                            </button>
+                        </form>
+
+                        <div class="header-button">
+                            <div class="noti-wrap">
+                                <div class="noti__item js-item-menu">
+                                    <i class="zmdi zmdi-notifications-active"></i>
+
+                                    <div class="email-dropdown js-dropdown">
+                                    <div class="email__title">
+                                        <h2>{% trans 'Lịch sử hoạt động' %}</h2>
+
+                                            {% load log %}
+                                            {% get_admin_log 10 as admin_log for_user user %}
+                                            {% if not admin_log %}
+                                            <p>{% trans 'Không có dữ liệu' %}</p>
+                                            {% else %}
+                                            <ul class="actionlist">
+                                            {% for entry in admin_log %}
+                                            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                                                {% if entry.is_deletion or not entry.get_admin_url %}
+                                                    {{ entry.object_repr }}
+                                                {% else %}
+                                                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                                                {% endif %}
+                                                <br>
+                                                {% if entry.content_type %}
+                                                    <span class="mini quiet">{% filter capfirst %}{{ entry.content_type }}{% endfilter %}</span>
+                                                {% else %}
+                                                    <span class="mini quiet">{% trans 'Unknown content' %}</span>
+                                                {% endif %}
+                                            </li>
+                                            {% endfor %}
+                                            </ul>
+                                            {% endif %}
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <div class="account-wrap">
+                                    <div class="account-item clearfix js-item-menu">
+                                         {% if has_permission %}
+                                                {% block welcome-msg %}
+                                        <div class="image">
+                                                        <img src="{% static 'Quan_Ly/image/avatar-01.png' %}" />
+                                        </div>
+
+
+                                        <div class="content">
+                                            <a class="js-acc-btn" href="#">
+                                                    {% trans 'Xin chào,' %}
+                                                    <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+                                                </a>
+
+                                        </div>
+                                        {% endblock %}{% endif %}
+                                        <div class="account-dropdown js-dropdown">
+                                            <div class="info clearfix">
+                                                <div class="image">
+                                                    <a href="#">
+                                                        <img src="{% static 'Quan_Ly/image/avatar-01.png' %}"
+                                                             alt="admin "/>
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h5 class="name">
+                                                        <a href="#">{% firstof user.get_full_name %}</a>
+                                                    </h5>
+                                                    <span class="email">Quản trị viên</span>
+                                                </div>
+                                            </div>
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a onclick="thongtintaikhoan()" href="#">
+                                                        <i class="zmdi zmdi-account"></i>Thông tin tài khoản
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                   <a href="{% url 'admin:password_change' %}">  <i class="zmdi zmdi-edit"></i>{% trans 'Đổi mật khẩu' %}</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="account-dropdown__footer">
+                                                <a href="{% url 'admin:logout' %}">  <i class="zmdi zmdi-lock"></i>{% trans 'Đăng xuất' %}</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <dialog id="thongtincanhan">
+            <div class="container">
+                <h1>Thêm mới</h1>
+                <hr>
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-3">
+                        <div class="text-center">
+                           <img src="{% static 'Quan_Ly/image/avatar-01.png' %}" />
+                            <h6>Ảnh đại diện</h6>
+                            <input type="file" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- edit form column -->
+                    <div class="col-md-9 personal-info">
+
+
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Tài khoản:</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="text" value="{% firstof user.get_username %}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Mật khẩu:</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="password" value="123456">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Nhập lại mật khẩu:</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="password" value="123456">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Họ và tên:</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="text" value="{% firstof user.get_full_name %}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Địa chỉ:</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Giới tính:</label>
+                                <div class="col-lg-8">
+                                    <div class="ui-select">
+                                        <select id="gioitinh" class="form-control">
+                                            <option value="Nam">Nam</option>
+                                            <option value="Nu">Nữ</option>
+                                            <option value="ca2">Cả 2</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Email:</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="email" value="{% firstof user.get_email %}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"></label>
+                                <div class="col-md-8">
+
+                                   <input type="submit" name="" value="Lưu" />
+
+                                   <input type="submit" name="cancel" value="Thoát" />
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+    <!-- END Header -->
+    {% block breadcrumbs %}
+    <div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+    {% if title %} &rsaquo; {{ title }}{% endif %}
+    </div>
+    {% endblock %}
+    {% endif %}
+
+    {% block messages %}
+        {% if messages %}
+        <ul class="messagelist">{% for message in messages %}
+          <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+        {% endfor %}</ul>
+        {% endif %}
+    {% endblock messages %}
+
+    <!-- Content -->
+    <div id="content" class="{% block coltype %}colM{% endblock %}">
+        {% block pretitle %}{% endblock %}
+        {% block content_title %}{% if title %}<h1>Trang chủ quản lý</h1>{% endif %}{% endblock %}
+        {% block content %}
+        {% block object-tools %}{% endblock %}
+        {{ content }}
+        {% endblock %}
+        {% block sidebar %}{% endblock %}
+        <br class="clear">
+    </div>
+    <!-- END Content -->
+
+    {% block footer %}<div id="footer"></div>{% endblock %}
+</div>
+<!-- END Container -->
+ <script src="{% static 'Quan_Ly/js/animsition.min.js' %}"></script>
+    <script src="{% static 'Quan_Ly/js/chucnang.js' %}"></script>
+    <script src="{% static 'Quan_Ly/js/main.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends 'static/Khach_Hang/Base.html' %}
+{% load static %}
+
+{% block content %}
+	
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-9">
+					<div class="blog-post-area">
+						<h2 class="title text-center">Danh sách bài tin</h2>
+						{% for new in news %}
+							<div class="single-blog-post">
+							<h3>{{ new.title }}</h3>
+							<div class="post-meta">
+								<ul>
+									<li><i class="fa fa-user"></i> {{new.user.username}}</li>
+									<li><i class="fa fa-clock-o"></i> {{new.create_day.time}}</li>
+									<li><i class="fa fa-calendar"></i> {{new.create_day.date}}</li>
+								</ul>
+								<span>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star-half-o"></i>
+								</span>
+							</div>
+							<a href="">
+								<img style="width: 300px;height: 300px; margin-left: 31%;" src="{% static new.img.url %}" alt="">
+							</a>
+								<p> {{new.sumary}}</p>
+								<a  class="btn btn-primary" href="{% url 'trang-chu:chitiettin' new.id %}">Xem chi tiết</a>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

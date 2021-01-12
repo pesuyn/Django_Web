@@ -1,0 +1,75 @@
+{% extends 'static/Khach_Hang/Base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+	<section id="advertisement">
+		<div class="container">
+			<img src="images/shop/advertisement.jpg" alt="" />
+		</div>
+	</section>
+	
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>Loại hàng</h2>
+						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+							<div class="panel panel-default">
+									<div class="panel-body">
+										<ul>
+											{% for item in cates %}
+												<li><a href="{% url 'trang-chu:category' item.id %}">{{ item.name }} </a></li>
+											{% endfor %}
+										</ul>
+									</div>
+							</div>
+						</div><!--/category-products-->
+
+						<div class="shipping text-center"><!--shipping-->
+							<img src="images/home/shipping.jpg" alt="" />
+						</div><!--/shipping-->
+
+					</div>
+				</div>
+
+					<div class="features_items"><!--features_items-->
+						{% if post %}
+							<center><h2 class="title text-center">Result Searching</h2></center>
+								{% for item in post %}
+									<div class="col-sm-4">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+												<div class="productinfo text-center">
+													<img style="width: 250px;height: 250px"  src="{% static item.image.url %}" alt="" />
+													<h2>${{ item.price }}</h2>
+													<p>{{ item.name }}</p>
+													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="{% url 'trang-chu:product' item.id %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
+
+												</div>
+
+										</div>
+
+									</div>
+								</div>
+								{% endfor %}
+							{% else %}
+								<center><h2>Not Found</h2></center>
+						{% endif%}
+								</div>
+						<ul class="pagination">
+							<li class="active"><a href="">1</a></li>
+							<li><a href="">2</a></li>
+							<li><a href="">3</a></li>
+							<li><a href="">&raquo;</a></li>
+						</ul>
+					</div>
+			</div>
+		<!--features_items-->
+
+		</div>
+	</section>
+{% endblock %}

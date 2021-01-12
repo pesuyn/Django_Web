@@ -1,0 +1,27 @@
+
+#favDialog_chinhsua {
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#favDialog_themmoi {
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding-left: 100px;
+    text-align: center;
+}
+#thongtincanhan{
+
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding-left: 100px;
+    text-align: center;
+
+}

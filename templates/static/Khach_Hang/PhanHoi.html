@@ -1,0 +1,43 @@
+{% extends 'static/Khach_Hang/Base.html' %}
+{% load static %}
+
+{% block content %}
+
+	<section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-4" style="margin-left: 300px">
+					<div style="    width: 500px;" class="signup-form" ><!--sign up form-->
+						<h2>Gửi phản hồi</h2>
+						<form action="#" method="POST">
+
+
+                            {% csrf_token %}
+                            <select style="margin-bottom: 15px;" name="loai" id="cars">
+                              <option value=0>Khiếu nại</option>
+                              <option value=1>Báo cáo</option>
+                              <option value=2>Đánh giá</option>
+                            </select>
+                            <input type="text" name="tieude" placeholder="Tiêu đề"/>
+                            <input style="height: 300px" type="text" name="noidung" placeholder="Nội dung phản hồi"/>
+
+
+							<button type="submit" class="btn btn-default">Gửi phản hồi</button>
+
+
+
+
+						</form>
+
+
+					</div><!--/sign up form-->
+
+
+
+			</div>
+		</div>
+            </div>
+
+	</section><!--/form-->
+{% endblock %}
