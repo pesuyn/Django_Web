@@ -1,8 +1,6 @@
 from django.db import models
 # Create your models here.
 from django.contrib.auth.models import User
-from django.conf import settings
-from django.shortcuts import reverse
 
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -34,12 +32,17 @@ class product(models.Model):
     name=models.CharField(default='',max_length=255)
     price=models.FloatField(default=0.0)
     create_day=models.DateTimeField
+<<<<<<< HEAD
     quantity= models.PositiveIntegerField(validators=[MinValueValidator(0)])
+=======
+    quantity=models.IntegerField(default=0)
+>>>>>>> refs/remotes/origin/main
     image = models.ImageField(upload_to='')
     description=models.CharField(default='',max_length=500)
     status=models.BooleanField(default=True)
     category=models.ForeignKey("category",on_delete=models.CASCADE,null=True)
     supplier=models.ForeignKey("supplier",on_delete=models.CASCADE,null=True)
+<<<<<<< HEAD
     label=models.ForeignKey("label",on_delete=models.CASCADE, null=True)
 
     def __str__(self):
@@ -71,13 +74,17 @@ class product(models.Model):
 
 
 
+=======
+    def __str__(self):
+        return self.name
+>>>>>>> refs/remotes/origin/main
 class supplier(models.Model):
     name=models.CharField(default='',max_length=255)
     address=models.CharField(default='',max_length=255)
     phone=models.IntegerField
     status=models.BooleanField(default=True)
     def __str__(self):
-        return self.name
+        return self.supplier_name
 class news(models.Model):
     title=models.CharField(default='',max_length=255)
     content=models.CharField(default='',max_length=255)
@@ -99,6 +106,7 @@ class Profile(models.Model):
     create_day=models.DateTimeField(auto_now_add=True,null=True)
     date=models.DateTimeField(null=True,)
     status = models.BooleanField(default=True,null=True)
+<<<<<<< HEAD
     def __str__(self):
         return self.user.username
 
@@ -131,3 +139,10 @@ class bill(models.Model):
     date=models.DateTimeField(auto_now=True)
     def __str__(self):
         return f'{self.user} time {self.trade_time}'
+=======
+
+
+
+    def __str__(self):
+        return self.username
+>>>>>>> refs/remotes/origin/main

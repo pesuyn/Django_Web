@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from urllib import request
 
 from django.contrib import messages
@@ -5,20 +6,26 @@ from django.core.mail import send_mail
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.shortcuts import render,HttpResponse
-from django.views import View
-from KhachHang.models import *
-from django.views.generic import ListView, DetailView
-from django.utils import timezone
+=======
 
+from django.shortcuts import render, redirect
+>>>>>>> refs/remotes/origin/main
+from django.views import View
+from django.contrib import messages
+
+<<<<<<< HEAD
 from django.shortcuts import render
 from django.views import View
 from django.contrib import messages
+=======
+>>>>>>> refs/remotes/origin/main
 from .models import Profile
 from templates import static
 from django.http import HttpResponse
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 import random
 from Django_Web import settings
 from django.core.mail import EmailMultiAlternatives
@@ -97,13 +104,17 @@ def logoutUser(request):
     logout(request)
     return redirect('trang-chu:trangchu')
 
+=======
+>>>>>>> refs/remotes/origin/main
 
 
+
+login_required(login_url='dangnhap')
 class Trangchu(View):
 
 
-
     def get(self,request):
+<<<<<<< HEAD
         all_product = list(product.objects.all())
         recommend_product = random.sample(all_product, 3)
         recommend_product1 = random.sample(all_product, 3)
@@ -150,6 +161,84 @@ class ChiTietSP(DetailView):
 
         }
         return render(request, "static/Khach_Hang/ChiTietSanPham.html", context)
+=======
+        return render(request,'static/Khach_Hang/TrangChu.html')
+
+class dangki(View):
+    def get(self, request):
+        return render(request, 'static/Khach_Hang/register.html')
+
+    def post(self, request):
+        # f = CreateUserForm()
+        if request.method == 'POST':
+            hovaten = request.POST.get('hovaten',False)
+            name = request.POST.get('tendangnhap', False)
+            pw = request.POST.get('matkhau', False)
+            pw1 = request.POST.get('nhaplaimatkhau', False)
+            phone = request.POST.get('sodienthoai', False)
+            email = request.POST.get('email', False)
+            avatar = request.POST.get('avatar', False)
+            gioitinh = request.POST.get('gioitinh', False)
+            diachi = request.POST.get('diachi', False)
+            alluser=User.objects.all()
+            dem=0
+
+
+
+            for i in alluser:
+                if i.get_username() == name or i.get_email_field_name() == email:
+                    dem=1
+            if dem==1:
+                messages.info(request, "Tên đăng nhập hoặc email đã tồn tại")
+                return render(request, 'static/Khach_Hang/register.html')
+            else:
+                if (pw1 == pw and name!=pw and name!= pw1 ) :
+                    for i in Profile.objects.all():
+                        if i.phone == phone:
+                            messages.info(request, "Số điện thoại đã tồn tại")
+                            return render(request, 'static/Khach_Hang/register.html')
+                        else:
+                            user = User.objects.create_user(username=name, password=pw, email=email)
+                            user.save()
+
+                            user1 = User.objects.get(username=name)
+                            profile = Profile.objects.create(user=user1,username=hovaten,avatar=avatar,sex=gioitinh,address=diachi, phone=phone )
+                            profile.save()
+                            my_group = Group.objects.get(name='Users')
+                            my_group.user_set.add(user1)
+                            messages.info(request, "Đăng kí thành công, hãy đăng nhập")
+                            return redirect('trang-chu:dangnhap')
+                else:
+                    messages.info(request, "Đăng kí thất bại, vui lòng nhập lại")
+                    return render(request, 'static/Khach_Hang/register.html')
+
+class dangnhap(View):
+    def get(self, request):
+
+        return render(request, 'static/Khach_Hang/login.html')
+
+    def post(self, request):
+        username = request.POST.get('tendangnhap')
+        password = request.POST.get('matkhau')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            #return render(request, 'static/Khach_Hang/TrangChu.html')
+            return redirect('trang-chu:trangchu')
+        else:
+            messages.error(request, "Đăng nhập thất bại, nhập lại tài khoản")
+            return render(request, 'static/Khach_Hang/login.html')
+
+def logoutUser(request):
+    logout(request)
+    return redirect('trang-chu:trangchu')
+
+
+
+
+>>>>>>> refs/remotes/origin/main
 
 
 class thanhtoan(View):
@@ -277,6 +366,7 @@ class giohang(View):
             return render(request,'static/Khach_Hang/GioHang.html',{ 'labels': label.objects.all()})
 
 
+<<<<<<< HEAD
 
 def add_to_cart(request, id):
     all = Order.objects.filter(user=request.user)
@@ -448,3 +538,8 @@ def search(request):
         return render(request, 'static/Khach_Hang/TimKiemHang.html', {'post':post, 'cates':cates})
 
 
+=======
+class chitietsanpham(View):
+    def get(self,request):
+        return render(request,'static/Khach_Hang/ChiTietSanPham.html')
+>>>>>>> refs/remotes/origin/main

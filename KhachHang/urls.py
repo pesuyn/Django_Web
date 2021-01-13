@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path,include
 from . import views
+<<<<<<< HEAD
 from .views import add_to_cart, ChiTietSP,XemTheoLoai,XemTheoNganh,tintuc,search
 
 
@@ -25,6 +26,20 @@ urlpatterns = [
     path('category/<int:id>', XemTheoLoai.as_view(), name='category'),
     path('xemchitiet/<int:news_id>/', views.ChiTietTinTuc, name='chitiettin'),
     path('search/', views.search, name='search'),
+=======
+
+app_name = 'trang-chu'
+urlpatterns = [
+    path('',views.Trangchu.as_view(),name='trangchu' ),
+    path('thanhtoan/',views.thanhtoan.as_view(),name='thanhtoan' ),
+    path('giohang/',views.giohang.as_view(),name='giohang' ),
+    path('tintuc/',views.tintuc.as_view(),name='tintuc' ),
+    path('dangki/', views.dangki.as_view(), name='dangki'),
+    path('dangnhap/', views.dangnhap.as_view(), name='dangnhap'),
+    path('dangxuat/', views.logoutUser, name='dangxuat'),
+    path('chitietsanpham/',views.chitietsanpham.as_view,name='chitietsanpham')
+
+>>>>>>> refs/remotes/origin/main
 
 
 ]

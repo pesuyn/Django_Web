@@ -1,0 +1,85 @@
+{% extends 'static/Khach_Hang/Base.html' %}
+{% load static %}
+
+{% block content %}
+
+	<section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-1">
+					<div class="login-form"><!--login form-->
+                        </form>
+					</div><!--/login form-->
+				</div>
+				<div class="col-sm-1">
+
+				</div>
+				<div class="col-sm-4">
+					<div class="signup-form"><!--sign up form-->
+						<h2>Đăng ký tài khoản</h2>
+						<form action="#" method="POST">
+
+
+                            {% csrf_token %}
+                         <input type="text" name="hovaten" placeholder="Họ và tên"/>
+                            <input type="text" name="tendangnhap" placeholder="Tên đăng nhập"/>
+                            <input type="password" name="matkhau" placeholder="Mật khẩu"/>
+                            <input type="password" name="nhaplaimatkhau" placeholder="Nhập lại mật khẩu"/>
+                            <input type="text" name="sodienthoai" placeholder="Số điện thoại"/>
+                            <input type="email" name="email" placeholder="Email"/>
+                            <input type="text" name="diachi" placeholder="Địa chỉ"/>
+
+                            <label for="gioitinh">Giới tính:</label>
+
+                            <select name="gioitinh" id="gioitinh">
+                              <option value="1">Nam</option>
+                              <option value="0">Nữ</option>
+                            </select>
+
+                            <div class="avatar-wrapper">
+	                        <img class="profile-pic" src="" />
+	                        <div class="upload-button">
+		                    <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+	                        </div>
+	                        <input class="file-upload" type="file" name="avatar" accept="image/*"/>
+                             </div>
+                            <button type="submit" class="btn btn-default">Đăng ký
+                            </button>
+                         {% csrf_token %}
+
+
+
+                              {% for message in messages %}
+                                <p id="messages">{{ message }}</p>
+
+                            {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+						</form>
+
+
+					</div><!--/sign up form-->
+
+                    <div class="d-flex justify-content-center links">
+						Đã có tài khoản ? <a href="{% url 'trang-chu:dangnhap' %}" class="ml-2">Đăng nhập</a>
+
+
+
+
+				</div>
+
+			</div>
+		</div>
+            </div>
+
+	</section><!--/form-->
+{% endblock %}
