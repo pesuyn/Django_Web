@@ -36,7 +36,7 @@ class product(models.Model):
     create_day=models.DateTimeField
     quantity= models.PositiveIntegerField(validators=[MinValueValidator(0)])
     image = models.ImageField(upload_to='')
-    description=models.CharField(default='',max_length=500)
+    description=models.TextField(default='')
     status=models.BooleanField(default=True)
     category=models.ForeignKey("category",on_delete=models.CASCADE,null=True)
     supplier=models.ForeignKey("supplier",on_delete=models.CASCADE,null=True)
@@ -80,7 +80,7 @@ class supplier(models.Model):
         return self.name
 class news(models.Model):
     title=models.CharField(default='',max_length=255)
-    content=models.CharField(default='',max_length=255)
+    content=models.TextField(default='')
     create_day=models.DateTimeField(null=True)
     status=models.BooleanField(default=True)
     user = models.ForeignKey(User, models.CASCADE, null=True)

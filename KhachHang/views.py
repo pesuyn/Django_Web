@@ -58,18 +58,23 @@ class dangki(View):
                 messages.info(request, "Tên đăng nhập hoặc email đã tồn tại")
                 return render(request, 'static/Khach_Hang/register.html')
             else:
-                if (pw1 == pw and name!=pw and name!= pw1 ) : # cái này để k
+                if (pw1 == pw and name!=pw and name!= pw1 ) :
                     user = User.objects.create_user(username=name, password=pw, email=email)
                     user.last_name=hovaten
                     user.save()
-
                     user1 = User.objects.get(username=name)
                     profile = Profile.objects.create(user=user1,username=hovaten,avatar=avatar,sex=gioitinh,address=diachi, phone=phone )
                     profile.save()
                     my_group = Group.objects.get(name='Users')
                     my_group.user_set.add(user1)
+                    content = '<h1> <strong>Cảm ơn bạn đã đăng ký tài khoản</strong></h1> ' + '<p><strong>Tài khoản:</strong> </p>' + name + '<p><strong>Mật khẩu:</strong> </p>' + pw
+                    mail=str(email)
+                    subject, from_email, to = 'Đăng ký tài khoản thành công', 'shoppingonlinedjango@gmail.com', mail
+                    text_content = 'Đăng ký tài khoản'
 
-
+                    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                    msg.attach_alternative(content, "text/html")
+                    msg.send()
                     return redirect('trang-chu:dangnhap')
                 else:
                     messages.info(request, "Đăng kí thất bại, vui lòng nhập lại")
@@ -179,7 +184,10 @@ class thanhtoan(View):
             for item in  OrderItem.objects.filter(user=request.user):
                 if item.ordered == False:
                     product1=product.objects.get(name=item.item.name)
-                    product1.quantity-=item.quantity
+                    if product1.quantity < item.quantity:
+                        product1.quantity =0
+                    else:
+                        product1.quantity-=item.quantity
                     product1.save(update_fields=['quantity'])
                     nameitem=str(item.item.name)
                     br=str('<p> </p>')
@@ -190,7 +198,7 @@ class thanhtoan(View):
                 item.save(update_fields=['ordered'])
             user = User.objects.get(id=request.user.id)
             mail = str(user.email)
-            subject, from_email, to = 'Đặt hàng thành công', 'pesuyn444@gmail.com', mail
+            subject, from_email, to = 'Đặt hàng thành công', 'shoppingonlinedjango@gmail.com', mail
             text_content = 'Đặt hàng'
             sum= ' <strong> Số lượng sản phẩm đã mua  </strong>' + quantity + '<p> </p>' + \
                   '<strong> Tổng số tiền </strong>' + totalprice
