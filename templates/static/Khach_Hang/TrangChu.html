@@ -18,9 +18,9 @@
 							<div class="item active">
 								<div class="col-sm-6">
 									<h1><span>Iphone 12</span>-Pro Max 128GB </h1>
-									<h2>32.000.000₫</h2>
+									<h2>21.570.000₫</h2>
                                     <p>Apple đã trang bị cho điện thoại 12 Pro Max mới này màn hình có kích thước lên đến 6,7 inch, nhờ vậy mà phần viền của máy rất nhỏ. Giống như iPhone 11 Pro Max, lần này Apple cũng dùng màn hình Super Retina XDR. Với độ phân giải 2778 x 1284 pixel, màn hình iPhone 12 Pro Max còn được bo tròn theo thiết kế cong và các góc này nằm trong một hình chữ nhật tiêu chuẩn.</p>
-									<button type="button" class="btn btn-default get">Mua ngay</button>
+									<a href="product/1" type="button" class="btn btn-default get">Mua ngay</a>
 								</div>
 								<div class="col-sm-6">
 									<img style="width: 1000px;height: 500px;"src="{% static '/Khach_Hang/images/home/trang-1.jpg' %}" class="girl img-responsive" alt="" />
@@ -31,9 +31,9 @@
                             <div class="item">
 								<div class="col-sm-6">
 									<h1><span>MacBook</span> Pro 2020  </h1>
-									<h2>32.499.000₫</h2>
+									<h2>51,550,000.0₫</h2>
                                     <p>Chiếc MacBook Pro 2020 vẫn mang thiết kế quen thuộc của mẫu Mac 13-inch từng được ra lò nhiều năm qua. Apple đã khẳng định đây là “thiết kế notebook gọn nhẹ nhất” mà vẫn giữ được hiệu năng đỉnh cao và thời lượng pin dài cả ngày.</p>
-									<button type="button" class="btn btn-default get">Mua ngay</button>
+									<a href="product/5" type="button" class="btn btn-default get">Mua ngay</a>
 								</div>
 								<div class="col-sm-6">
 									<img style="width: 1000px;height: 500px;"src="{% static 'Khach_Hang/images/home/unnamed.jpg ' %}" class="girl img-responsive" alt="" />
@@ -45,7 +45,7 @@
 									<h1><span>Apple Watch</span> Series 6 </h1>
 									<h2>25.999.000₫</h2>
                                     <p>Apple Watch Series 6 40mm có thiết kế tổng thể tương tự như Apple Watch Series 5 hay thậm chí là Series 4. Điều khác biệt đó là các cảm biến đo nồng độ oxy trong máu mới được đặt dưới đáy của Watch Series 6. </p>
-									<button type="button" class="btn btn-default get">Mua ngay</button>
+									<a href="product/4" type="button" class="btn btn-default get">Mua ngay</a>
 								</div>
 								<div class="col-sm-6">
 									<img style="width: 1000px;height: 500px;"src="{% static 'Khach_Hang/images/home/apple-watch-series-6-44mm-vien-nhom-xanh-day-cao-su.jpg' %}" class="girl img-responsive" alt="" />
@@ -122,7 +122,7 @@
 									<div class="single-products">
 											<div class="productinfo text-center">
 												<img style=" height: 150px;   width: 150px;" src="{% static item.image.url %}" alt="" />
-												<h2>${{ item.price }}</h2>
+												<h2>{{ item.price }} VNĐ</h2>
 												<p>{{ item.name }}</p>
 												<a href="{{ item.get_add_to_cart_url }}" onclick="addcart({{ item.id }})" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
 												<a href="product/{{item.id}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
@@ -143,7 +143,7 @@
 								<div class="single-products">
 										<div class="productinfo text-center">
 											<img  style="   height: 150px; width: 150px;" src="{% static item.image.url %}" alt="" />
-											<h2>${{ item.price }}</h2>
+											<h2>{{ item.price }} VNĐVNĐ</h2>
 											<p>{{ item.name }}</p>
 											<a href="{{ item.get_add_to_cart_url }}" onclick="addcart({{ item.id }})" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
 											<a href="product/{{item.id}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
@@ -169,12 +169,12 @@
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Tất cả sản phẩm</h2>
 						{% for item in items %}
-						<div class="col-sm-4">
+						<div style="height: 400px;" class="col-sm-4" >
 							<div class="product-image-wrapper">
 								<div class="single-products">
 										<div class="productinfo text-center">
 											<img style="width: 250px;height: 250px" src="{% static item.image.url %}" alt="" />
-											<h2>${{ item.price }}</h2>
+											<h2>{{ item.price }} VNĐ</h2>
 											<p>{{ item.name }}</p>
 											<a  href="{{ item.get_add_to_cart_url }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
 											<a href="product/{{item.id}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
